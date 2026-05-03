@@ -177,9 +177,6 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
 /* Hero video background */
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.25;filter:blur(4px) saturate(1.2);mix-blend-mode:screen;pointer-events:none;user-select:none;transform:translateZ(0)}
 .hero-video::-webkit-media-controls,.hero-video::-webkit-media-controls-panel,.hero-video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
-@media (hover:none) and (pointer:coarse), (max-width:820px){
-  .hero-video{display:none}
-}
 
 /* Mobile polish */
 .section,.hero{scroll-margin-top:82px}
@@ -472,6 +469,7 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const compactMotion = matchMedia('(max-width: 680px)').matches;
   const $ = s => document.querySelector(s);
   const $$ = s => [...document.querySelectorAll(s)];
   const clamp = (v,min,max)=>Math.min(max,Math.max(min,v));
@@ -494,6 +492,21 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
     setAccent(current);
   }
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const heroVideo = $('.hero-video');
+  if(heroVideo){
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.controls = false;
+    heroVideo.setAttribute('muted','');
+    heroVideo.setAttribute('playsinline','');
+    heroVideo.setAttribute('webkit-playsinline','');
+    const playHeroVideo = () => heroVideo.play().catch(()=>{});
+    if(heroVideo.readyState >= 2) playHeroVideo();
+    else heroVideo.addEventListener('loadeddata', playHeroVideo, {once:true});
+    addEventListener('touchstart', playHeroVideo, {once:true, passive:true});
+    addEventListener('pointerdown', playHeroVideo, {once:true, passive:true});
+  }
 
   const menu=$('#menu'), mobile=$('#mobileNav');
   menu.addEventListener('click',()=>{menu.classList.toggle('on');mobile.classList.toggle('on');document.body.style.overflow=mobile.classList.contains('on')?'hidden':''});
@@ -562,7 +575,7 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
       ctx.restore()
     }
     
-    draw(t){this.t=t;const ctx=this.ctx;ctx.clearRect(0,0,this.w,this.h);let mode=this.mode;let p=this.scrollProgress();const colors={idle:'#f6f3ec',brand:'#ffd28a',plant:'#92f3bf',coin:'#ffd28a',signal:'#a7dcff'};if(mode==='brand')this.baseBrand(ctx);else this.base(ctx,colors[mode]||colors.idle);if(mode==='idle'){const y=23+Math.sin(t*.0018)*1.05;this.dot(ctx,56,y,4.7,colors.idle)}else if(mode==='brand'){const y=23+Math.sin(t*.0018)*1.05;this.dot(ctx,56,y,this.thick?6.2:4.7,'#ffd28a')}else if(mode==='plant'){this.plant(ctx,p==null?(.55+.35*Math.sin(t*.00055)):p)}else if(mode==='coin'){let q=p==null?((Math.sin(t*.00075)+1)/2):p;const fall=clamp(q/.55,0,1);let x=lerp(39,50,ease(fall));let y=lerp(18,66,fall);let rot=fall*5.5;if(q>.55){const r=easeOutBack(clamp((q-.55)/.35,0,1));x=50+Math.sin(r*Math.PI*1.15)*8.4;y=66-Math.sin(r*Math.PI)*5.4+Math.min(1,r)*2.2;rot+=r*2.4}this.coin(ctx,x,y,rot)}
+    draw(t){this.t=t;const ctx=this.ctx;ctx.clearRect(0,0,this.w,this.h);let mode=this.mode;let p=this.scrollProgress();const colors={idle:'#f6f3ec',brand:'#ffd28a',plant:'#92f3bf',coin:'#ffd28a',signal:'#a7dcff'};if(mode==='brand')this.baseBrand(ctx);else this.base(ctx,colors[mode]||colors.idle);if(mode==='idle'){const y=23+Math.sin(t*.0018)*1.05;this.dot(ctx,56,y,4.7,colors.idle)}else if(mode==='brand'){const y=23+Math.sin(t*.0018)*1.05;this.dot(ctx,56,y,this.thick?6.2:4.7,'#ffd28a')}else if(mode==='plant'){const q=p==null?(.55+.35*Math.sin(t*.00055)):(compactMotion?clamp((p-.18)/.74,0,1):p);this.plant(ctx,q)}else if(mode==='coin'){let q=p==null?((Math.sin(t*.00075)+1)/2):(compactMotion?clamp((p+.18)/.86,0,1):p);const fall=clamp(q/.55,0,1);let x=lerp(39,50,ease(fall));let y=lerp(18,66,fall);let rot=fall*5.5;if(q>.55){const r=easeOutBack(clamp((q-.55)/.35,0,1));x=50+Math.sin(r*Math.PI*1.15)*8.4;y=66-Math.sin(r*Math.PI)*5.4+Math.min(1,r)*2.2;rot+=r*2.4}this.coin(ctx,x,y,rot)}
     else if(mode==='signal'){this.signal(ctx,t,p)}}
   }
   const logos=$$('.nama-logo').map(c=>new NamaLogo(c));
