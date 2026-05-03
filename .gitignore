@@ -2,6 +2,7 @@
 .npm-cache/
 node_modules/
 output/
+video_frames/
 /assets/
 site/assets/demo-smartphone-marble.mp4
 site/assets/hero-waves.mp4
