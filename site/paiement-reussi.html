@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paiement confirmé - Nama IA</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b0c0c;--fg:#f6f3ec;--muted:rgba(246,243,236,.66);--line:rgba(255,255,255,.12);--accent:#a7dcff}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,rgba(167,220,255,.14),transparent 36%),linear-gradient(180deg,#121313,#070707);font-family:Inter,Arial,sans-serif;color:var(--fg);padding:22px}
+    main{width:min(680px,100%);padding:34px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.055);box-shadow:0 34px 100px rgba(0,0,0,.42)}
+    .kicker{font:700 .68rem ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.14em;color:var(--accent)}
+    h1{font:600 clamp(2.3rem,8vw,4.5rem) Georgia,serif;line-height:1.02;margin:14px 0 18px;letter-spacing:-.03em}
+    p{color:var(--muted);line-height:1.7;font-size:1.03rem}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{min-height:50px;border-radius:999px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800}
+    .primary{background:#fff;color:#050505}.ghost{border:1px solid var(--line);color:#fff;background:rgba(255,255,255,.05)}
+    .small{margin-top:20px;font-size:.86rem;color:rgba(246,243,236,.46)}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="kicker">Paiement confirmé</div>
+    <h1>Dernière étape : connecter Google Calendar.</h1>
+    <p>Le paiement est validé. Pour permettre à Nama IA de consulter vos disponibilités et créer les rendez-vous, connectez maintenant le Google Calendar qui servira à la configuration.</p>
+    <div class="actions">
+      <a class="btn primary" id="googleConnect" href="/">Connecter Google Calendar</a>
+      <a class="btn ghost" href="/">Retour au site</a>
+    </div>
+    <p class="small">La connexion Google passe par OAuth. Nama IA ne reçoit jamais votre mot de passe Google.</p>
+  </main>
+  <script>
+    const sessionId = new URLSearchParams(location.search).get('session_id');
+    const link = document.getElementById('googleConnect');
+    link.href = sessionId ? `/api/google/start?session_id=${encodeURIComponent(sessionId)}` : '/';
+  </script>
+</body>
+</html>

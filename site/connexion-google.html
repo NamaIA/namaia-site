@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion Google Calendar - Nama IA</title>
+  <style>
+    :root{color-scheme:dark;--fg:#f6f3ec;--muted:rgba(246,243,236,.66);--line:rgba(255,255,255,.12);--accent:#92f3bf}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 70% 20%,rgba(146,243,191,.15),transparent 34%),#0b0c0c;font-family:Inter,Arial,sans-serif;color:var(--fg);padding:22px}
+    main{width:min(640px,100%);padding:34px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.055);box-shadow:0 34px 100px rgba(0,0,0,.42)}
+    .kicker{font:700 .68rem ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.14em;color:var(--accent)}
+    h1{font:600 clamp(2.2rem,7vw,4rem) Georgia,serif;line-height:1.04;margin:14px 0 18px;letter-spacing:-.03em}
+    p{color:var(--muted);line-height:1.7}.btn{margin-top:20px;min-height:50px;border-radius:999px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;background:#fff;color:#050505}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="kicker" id="kicker">Google Calendar</div>
+    <h1 id="title">Connexion enregistrée.</h1>
+    <p id="body">Votre autorisation Google Calendar a été enregistrée. Nama IA peut maintenant préparer la configuration avec vous.</p>
+    <a class="btn" href="/">Retour au site</a>
+  </main>
+  <script>
+    const status = new URLSearchParams(location.search).get('status');
+    if (status === 'refused') {
+      document.getElementById('kicker').textContent = 'Connexion refusée';
+      document.getElementById('title').textContent = 'Google Calendar n’a pas été connecté.';
+      document.getElementById('body').textContent = 'Aucune autorisation Google n’a été enregistrée. Vous pourrez recommencer la connexion pendant la configuration.';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "nama-ia-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/sync-site.mjs",
+    "check": "node scripts/check-site.mjs"
+  },
+  "dependencies": {
+    "@netlify/functions": "^4.2.5",
+    "@neondatabase/serverless": "^1.0.2",
+    "googleapis": "^166.0.0",
+    "stripe": "^20.1.0"
+  },
+  "devDependencies": {}
+}

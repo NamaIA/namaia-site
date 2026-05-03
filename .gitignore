@@ -1,0 +1,13 @@
+.netlify/
+.npm-cache/
+node_modules/
+output/
+/assets/
+site/assets/demo-smartphone-marble.mp4
+site/assets/hero-waves.mp4
+ouvrir-*.cmd
+ouvrir-*.url
+preview-server.js
+.env
+.env.*
+!.env.example
