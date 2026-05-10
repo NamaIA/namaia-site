@@ -28,7 +28,7 @@ export default async (req: Request) => {
       returning stripe_checkout_session_id
     `;
     const stateRow = stateRows[0] as { stripe_checkout_session_id: string } | undefined;
-    if (!stateRow) return json({ error: 'Lien Google expiré ou déjà utilisé.' }, 400);
+    if (!stateRow) return json({ error: 'Lien Google expire ou deja utilise.' }, 400);
 
     const customer = await findCustomerByCheckoutSession(stateRow.stripe_checkout_session_id);
     if (!customer) return json({ error: 'Client introuvable pour cette session.' }, 404);
@@ -54,6 +54,7 @@ export default async (req: Request) => {
         google_email,
         scope,
         token_type,
+        token_status,
         access_token_enc,
         refresh_token_enc,
         expiry_date,
@@ -66,22 +67,25 @@ export default async (req: Request) => {
         ${googleEmail},
         ${tokens.scope ?? null},
         ${tokens.token_type ?? null},
+        ${'active'},
         ${tokens.access_token ? encryptText(tokens.access_token) : null},
         ${tokens.refresh_token ? encryptText(tokens.refresh_token) : null},
         ${tokens.expiry_date ? new Date(tokens.expiry_date) : null},
         ${encryptText(JSON.stringify(tokens))},
         now()
       )
-      on conflict (customer_id)
+      on conflict (customer_id) where token_status = 'active'
       do update set
         stripe_checkout_session_id = excluded.stripe_checkout_session_id,
         google_email = excluded.google_email,
         scope = excluded.scope,
         token_type = excluded.token_type,
+        token_status = 'active',
         access_token_enc = excluded.access_token_enc,
         refresh_token_enc = coalesce(excluded.refresh_token_enc, public.google_tokens.refresh_token_enc),
         expiry_date = excluded.expiry_date,
         raw_token_enc = excluded.raw_token_enc,
+        last_refresh_error = null,
         updated_at = now()
     `;
 
