@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
+  <meta name="robots" content="index,follow">
   <title>Politique de confidentialité - Nama IA</title>
   <style>
     body{margin:0;background:#101010;color:#f6f3ec;font-family:Arial,sans-serif;line-height:1.7}
@@ -17,13 +17,20 @@
   <main>
     <a class="back" href="index.html">Retour au site</a>
     <h1>Confidentialité</h1>
-    <p class="note">Dernière mise à jour : 01/05/2026.</p>
+    <p class="note">Dernière mise à jour : 12/05/2026.</p>
 
     <h2>Responsable de traitement</h2>
     <p>Souleyman Yaaqobi / NamalA, éditeur du service Nama IA.</p>
 
     <h2>Données collectées</h2>
     <p>Le formulaire de contact prépare un email à envoyer à Nama IA. Les données concernées sont : nom, entreprise ou activité, téléphone, email et métier si renseigné.</p>
+    <p>Lorsque le service est activé pour un client professionnel, Nama IA peut aussi traiter les informations nécessaires au fonctionnement de l’assistant téléphonique : règles métier, horaires, prestations, demandes de rendez-vous, numéros de téléphone des appelants, contenu utile des échanges, créneaux disponibles et informations de rendez-vous.</p>
+
+    <h2>Données Google Calendar et OAuth</h2>
+    <p>Après autorisation explicite du client, Nama IA utilise Google OAuth pour connecter Google Calendar. Nama IA ne demande jamais le mot de passe Google du client.</p>
+    <p>Les données Google concernées peuvent inclure : l’adresse email Google associée à la connexion, les autorisations accordées, les jetons OAuth nécessaires au fonctionnement du service, les disponibilités de calendrier, les événements existants utiles à la vérification des créneaux, ainsi que les événements créés, modifiés ou supprimés à la demande du client ou de ses appelants.</p>
+    <p>Ces données Google sont utilisées uniquement pour fournir les fonctionnalités de prise de rendez-vous : consulter les disponibilités, éviter les conflits d’agenda, créer un rendez-vous, modifier un rendez-vous, supprimer un rendez-vous et restituer au client les informations utiles liées à son planning.</p>
+    <p>Nama IA n’utilise pas les données Google Calendar à des fins publicitaires, ne les vend pas, ne les loue pas, ne les partage pas à des courtiers en données et ne les utilise pas pour entraîner ou améliorer des modèles d’intelligence artificielle généralistes.</p>
 
     <h2>Finalité</h2>
     <p>Ces données servent uniquement à répondre à une demande de rappel professionnel, organiser un rendez-vous commercial et préparer l’installation éventuelle du service.</p>
@@ -33,9 +40,23 @@
 
     <h2>Durée de conservation</h2>
     <p>Les données de prospect peuvent être conservées jusqu’à 3 ans à compter du dernier contact émanant du prospect, sauf obligation légale ou relation commerciale active.</p>
+    <p>Les jetons OAuth Google et les données techniques liées à la connexion Google Calendar sont conservés tant que le client utilise le service ou jusqu’à révocation de l’accès. Le client peut demander la déconnexion de Google Calendar et la suppression des données associées en écrivant à <a href="mailto:namaiab2b@gmail.com">namaiab2b@gmail.com</a>.</p>
 
-    <h2>Sous-traitants et outils pressentis</h2>
-    <p>Selon les étapes du service, les outils suivants peuvent intervenir : Google Calendar, Retell AI, Twilio, Stripe, Netlify, Neon et les services email utilisés pour les échanges.</p>
+    <h2>Partage, transfert et divulgation des données</h2>
+    <p>Nama IA ne partage les données personnelles, y compris les données Google Calendar, qu’avec les prestataires techniques strictement nécessaires à la fourniture du service, à son hébergement, à son paiement, à sa sécurité et à son support.</p>
+    <p>Selon les étapes du service, les outils suivants peuvent intervenir : Google Calendar pour l’agenda, Netlify pour l’hébergement du site et des fonctions backend, Neon pour la base de données, n8n pour l’automatisation des workflows, Retell AI pour l’agent vocal, OpenAI pour le modèle de langage utilisé par l’assistant, Twilio pour la partie téléphonie, Stripe pour les paiements, et les services email utilisés pour les échanges avec les clients.</p>
+    <p>Ces prestataires peuvent traiter certaines données uniquement pour exécuter le service demandé. Ils ne sont pas autorisés par Nama IA à utiliser les données Google Calendar pour leurs propres finalités publicitaires, à les vendre, ni à les utiliser pour entraîner des modèles d’intelligence artificielle généralistes.</p>
+    <p>Les données Google Calendar peuvent être transmises à l’assistant vocal uniquement lorsque cela est nécessaire pour répondre à un appel, vérifier une disponibilité ou gérer un rendez-vous. Nama IA limite cette transmission aux informations utiles au contexte de l’appel.</p>
+
+    <h2>Protection des données sensibles</h2>
+    <p>Les échanges entre le site, les fonctions backend et les services tiers se font via des connexions sécurisées HTTPS/TLS lorsque les services concernés le permettent.</p>
+    <p>Les jetons OAuth Google ne sont pas stockés en clair dans le navigateur. Ils sont traités côté backend et stockés dans la base Neon sous forme chiffrée. Le chiffrement utilisé pour les jetons est AES-256-GCM, avec une clé conservée dans les variables d’environnement protégées de l’hébergement backend.</p>
+    <p>Nama IA sépare les données par client à l’aide d’un identifiant client unique, afin d’éviter qu’un jeton Google ou un calendrier soit associé au mauvais client. L’architecture prévoit un seul jeton Google actif par client.</p>
+    <p>L’accès aux données techniques et aux outils d’administration est limité aux besoins d’exploitation du service. Nama IA évite de journaliser les jetons OAuth en clair et ne place aucun secret Google, Stripe, Retell, Twilio ou Neon dans le code public du site.</p>
+
+    <h2>Intelligence artificielle</h2>
+    <p>Nama IA ne développe pas son propre modèle d’intelligence artificielle généraliste. Le service s’appuie sur des prestataires tiers, notamment Retell AI pour l’orchestration de l’agent vocal et OpenAI pour le modèle de langage utilisé par l’assistant.</p>
+    <p>Les données Google Calendar sont utilisées pour fournir la fonctionnalité de planning demandée par le client. Elles ne sont pas utilisées par Nama IA pour entraîner, améliorer ou constituer un modèle d’intelligence artificielle généraliste.</p>
 
     <h2>Cookies et mesure d’audience</h2>
     <p>À ce stade, le site ne met pas en place d’outil d’analyse d’audience volontaire. Si un outil d’analyse ou des cookies non nécessaires sont ajoutés plus tard, cette page devra être mise à jour.</p>
