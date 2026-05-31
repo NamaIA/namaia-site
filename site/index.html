@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Nama IA — L’assistant téléphonique qui remplit votre agenda</title>
 <meta name="description" content="Nama IA répond au téléphone, qualifie les demandes et prend les rendez-vous dans Google Calendar. Pour indépendants, artisans et petites entreprises en France." />
-<link rel="icon" type="image/png" href="assets/favicon.png" />
-<link rel="apple-touch-icon" href="assets/favicon.png" />
 <link rel="canonical" href="https://namaia.fr/" />
 <link rel="privacy-policy" href="https://namaia.fr/confidentialite.html" />
 <link rel="terms-of-service" href="https://namaia.fr/cgv.html" />
@@ -170,8 +168,12 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
 .quote-mark{font-family:var(--display);font-size:2.2rem;line-height:.72;color:rgba(22,18,13,.22)}
 .proof-actions{display:flex;justify-content:flex-end;margin-top:14px}
 .review-link{display:inline-flex;min-height:42px;align-items:center;justify-content:center;border-radius:999px;padding:0 15px;border:1px solid rgba(22,18,13,.16);color:var(--ink);background:#fff;font-weight:750;white-space:nowrap}
-.checkout-btn{width:100%;margin-top:22px}
-.checkout-btn[disabled]{opacity:.62;cursor:wait;transform:none!important}
+.legal-consent{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:flex-start;margin-top:22px;padding:12px;border-radius:18px;background:rgba(22,18,13,.05);border:1px solid rgba(22,18,13,.11);font-size:.78rem;line-height:1.45;color:var(--ink-muted)}
+.legal-consent input{width:18px;height:18px;margin-top:1px;accent-color:var(--ink)}
+.legal-consent a{color:var(--ink);font-weight:800;text-decoration:underline;text-underline-offset:2px}
+.checkout-btn{width:100%;margin-top:12px}
+.checkout-btn[disabled]{opacity:.62;cursor:not-allowed;transform:none!important}
+.checkout-btn.is-loading{cursor:wait}
 @media (max-width:780px){.proof-wall-head{display:block}.testimonial-grid{grid-template-columns:1fr}.proof-actions{justify-content:stretch}.review-link{width:100%;margin-top:4px}}
 
 /* Hero ambient aurora */
@@ -430,9 +432,9 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
     <div class="shell">
       <div class="pricing-head reveal"><span class="kicker">Tarifs lisibles</span><h2 class="h2">Un forfait,<br><span class="serif-em">une configuration.</span></h2><p class="lead">Trois forfaits mensuels sans engagement, avec installation personnalisée, Google Calendar et une enveloppe de minutes incluse selon votre volume d’appels.</p></div>
       <div class="pricing-grid stagger">
-        <article class="price-card"><h3 class="plan-name">Standard</h3><p class="plan-desc">Pour démarrer avec un assistant qui décroche, qualifie et planifie les demandes courantes.</p><div class="price">89<small>€/mois</small></div><div class="setup">+ 149 € d’installation/personnalisation</div><ul class="features"><li>Sans engagement</li><li>Clonage vocal inclus (option)</li><li>Google Calendar</li><li>Minutes incluses : 150 min</li><li>Récap des appels utiles</li></ul><button class="btn btn-primary checkout-btn" type="button" data-checkout-plan="standard">Choisir Standard</button></article>
-        <article class="price-card hot"><span class="popular">recommandé</span><h3 class="plan-name">Pro</h3><p class="plan-desc">Pour les entreprises avec un volume d’appels régulier et des règles métier plus fines.</p><div class="price">169<small>€/mois</small></div><div class="setup">+ 149 € d’installation/personnalisation</div><ul class="features"><li>Sans engagement</li><li>Clonage vocal inclus (option)</li><li>Google Calendar</li><li>Minutes incluses : 350 min</li><li>Règles de planning avancées</li></ul><button class="btn btn-primary checkout-btn" type="button" data-checkout-plan="pro">Choisir Pro</button></article>
-        <article class="price-card"><h3 class="plan-name">Business</h3><p class="plan-desc">Pour les équipes avec davantage d’appels, plus de scénarios et une disponibilité plus large.</p><div class="price">299<small>€/mois</small></div><div class="setup">+ 149 € d’installation/personnalisation</div><ul class="features"><li>Sans engagement</li><li>Clonage vocal inclus (option)</li><li>Google Calendar</li><li>Minutes incluses : 700 min</li><li>Configuration métier avancée</li></ul><button class="btn btn-primary checkout-btn" type="button" data-checkout-plan="business">Choisir Business</button></article>
+        <article class="price-card"><h3 class="plan-name">Standard</h3><p class="plan-desc">Pour démarrer avec un assistant qui décroche, qualifie et planifie les demandes courantes.</p><div class="price">89<small>€/mois</small></div><div class="setup">+ 149 € d’installation/personnalisation</div><ul class="features"><li>Sans engagement</li><li>Clonage vocal inclus (option)</li><li>Google Calendar</li><li>Minutes incluses : 150 min</li><li>Récap des appels utiles</li></ul><label class="legal-consent"><input class="legal-checkbox" type="checkbox"><span>J’accepte les <a href="https://namaia.fr/cgv.html" target="_blank" rel="noopener">CGV</a>, la <a href="https://namaia.fr/confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et l’<a href="https://namaia.fr/annexe-rgpd.html" target="_blank" rel="noopener">annexe RGPD</a>. Je confirme être autorisé à souscrire pour mon entreprise.</span></label><button class="btn btn-primary checkout-btn" type="button" data-checkout-plan="standard" disabled>Choisir Standard</button></article>
+        <article class="price-card hot"><span class="popular">recommandé</span><h3 class="plan-name">Pro</h3><p class="plan-desc">Pour les entreprises avec un volume d’appels régulier et des règles métier plus fines.</p><div class="price">169<small>€/mois</small></div><div class="setup">+ 149 € d’installation/personnalisation</div><ul class="features"><li>Sans engagement</li><li>Clonage vocal inclus (option)</li><li>Google Calendar</li><li>Minutes incluses : 350 min</li><li>Règles de planning avancées</li></ul><label class="legal-consent"><input class="legal-checkbox" type="checkbox"><span>J’accepte les <a href="https://namaia.fr/cgv.html" target="_blank" rel="noopener">CGV</a>, la <a href="https://namaia.fr/confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et l’<a href="https://namaia.fr/annexe-rgpd.html" target="_blank" rel="noopener">annexe RGPD</a>. Je confirme être autorisé à souscrire pour mon entreprise.</span></label><button class="btn btn-primary checkout-btn" type="button" data-checkout-plan="pro" disabled>Choisir Pro</button></article>
+        <article class="price-card"><h3 class="plan-name">Business</h3><p class="plan-desc">Pour les équipes avec davantage d’appels, plus de scénarios et une disponibilité plus large.</p><div class="price">299<small>€/mois</small></div><div class="setup">+ 149 € d’installation/personnalisation</div><ul class="features"><li>Sans engagement</li><li>Clonage vocal inclus (option)</li><li>Google Calendar</li><li>Minutes incluses : 700 min</li><li>Configuration métier avancée</li></ul><label class="legal-consent"><input class="legal-checkbox" type="checkbox"><span>J’accepte les <a href="https://namaia.fr/cgv.html" target="_blank" rel="noopener">CGV</a>, la <a href="https://namaia.fr/confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et l’<a href="https://namaia.fr/annexe-rgpd.html" target="_blank" rel="noopener">annexe RGPD</a>. Je confirme être autorisé à souscrire pour mon entreprise.</span></label><button class="btn btn-primary checkout-btn" type="button" data-checkout-plan="business" disabled>Choisir Business</button></article>
       </div>
 <p class="usage-note reveal">Les minutes incluses sont une enveloppe mensuelle. En cas de dépassement répété, Nama IA peut proposer un changement de forfait ou interrompre le service en fin de mois.</p>
     </div>
@@ -470,7 +472,7 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
     </div>
   </section>
 </main>
-<footer><div class="shell foot-inner"><p>&copy; 2026 Nama IA &middot; Le standard qui ne dort jamais.</p><div class="foot-links"><a href="https://namaia.fr/mentions-legales.html">Mentions l&eacute;gales</a><a href="https://namaia.fr/confidentialite.html" rel="privacy-policy">Politique de confidentialit&eacute;</a><a href="https://namaia.fr/cgv.html" rel="terms-of-service">CGV</a><a href="#contact">Contact</a></div></div></footer>
+<footer><div class="shell foot-inner"><p>&copy; 2026 Nama IA &middot; Le standard qui ne dort jamais.</p><div class="foot-links"><a href="https://namaia.fr/mentions-legales.html">Mentions l&eacute;gales</a><a href="https://namaia.fr/confidentialite.html" rel="privacy-policy">Politique de confidentialit&eacute;</a><a href="https://namaia.fr/cgv.html" rel="terms-of-service">CGV</a><a href="https://namaia.fr/annexe-rgpd.html">Annexe RGPD</a><a href="https://namaia.fr/abonnement.html">Gérer mon abonnement</a><a href="#contact">Contact</a></div></div></footer>
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -522,13 +524,40 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
 
   $$('.faq-q').forEach(q=>q.addEventListener('click',()=>{const item=q.closest('.faq-item');const was=item.classList.contains('open');$$('.faq-item.open').forEach(i=>i.classList.remove('open'));if(!was)item.classList.add('open')}));
 
+  const LEGAL_DOCUMENTS_VERSION = '2026-05-24';
+  function syncCheckoutButton(btn){
+    const card = btn.closest('.price-card');
+    const checkbox = card && card.querySelector('.legal-checkbox');
+    btn.disabled = !checkbox || !checkbox.checked;
+  }
+  $$('.legal-checkbox').forEach(checkbox=>checkbox.addEventListener('change',()=>{
+    const card = checkbox.closest('.price-card');
+    const btn = card && card.querySelector('.checkout-btn');
+    if(btn) syncCheckoutButton(btn);
+  }));
+  $$('.checkout-btn').forEach(syncCheckoutButton);
+
   $$('.checkout-btn').forEach(btn=>btn.addEventListener('click',async()=>{
     const plan=btn.dataset.checkoutPlan;
+    const card=btn.closest('.price-card');
+    const checkbox=card && card.querySelector('.legal-checkbox');
+    if(!checkbox || !checkbox.checked){
+      alert('Pour ouvrir le paiement, vous devez accepter les documents contractuels Nama IA.');
+      if(checkbox) checkbox.focus();
+      return;
+    }
     const oldText=btn.textContent;
     btn.disabled=true;
+    btn.classList.add('is-loading');
     btn.textContent='Ouverture de Stripe...';
     try{
-      const res=await fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan})});
+      const legal_acceptance={
+        accepted:true,
+        version:LEGAL_DOCUMENTS_VERSION,
+        accepted_at:new Date().toISOString(),
+        documents:['cgv','confidentialite','annexe-rgpd']
+      };
+      const res=await fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,legal_acceptance})});
       const data=await res.json();
       if(!res.ok||!data.url) throw new Error(data.error||'Impossible d’ouvrir le paiement.');
       location.href=data.url;
@@ -536,8 +565,9 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
       const contact=$('#contact');
       alert('Le paiement en ligne est en préparation. Pour l’instant, laissez vos coordonnées et on vous rappelle pour cadrer l’installation.');
       if(contact) contact.scrollIntoView({behavior:reduce?'auto':'smooth'});
-      btn.disabled=false;
+      btn.classList.remove('is-loading');
       btn.textContent=oldText;
+      syncCheckoutButton(btn);
     }
   }));
 

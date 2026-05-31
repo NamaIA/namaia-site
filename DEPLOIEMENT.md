@@ -29,6 +29,10 @@ Ces secrets doivent être copiés depuis tes dashboards, car ils ne sont pas lis
 - `STRIPE_WEBHOOK_SECRET`
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `ADMIN_EMAIL`
+- `STRIPE_PORTAL_CONFIGURATION_ID` (optionnel)
 
 Dans Netlify :
 
@@ -36,6 +40,13 @@ Dans Netlify :
 2. Va dans `Project configuration` puis `Environment variables`.
 3. Ajoute les variables ci-dessus.
 4. Marque les secrets comme variables secrètes quand Netlify le propose.
+
+Variables email :
+
+- `RESEND_API_KEY` : clé API Resend utilisée pour envoyer les liens privés Stripe et les notifications admin.
+- `EMAIL_FROM` : expéditeur validé chez Resend, par exemple `Nama IA <contact@namaia.fr>`.
+- `ADMIN_EMAIL` : adresse qui reçoit les notifications de résiliation. Par défaut prévu côté code : `namaiab2b@gmail.com`.
+- `STRIPE_PORTAL_CONFIGURATION_ID` : optionnel. À remplir seulement si tu veux forcer une configuration Stripe Customer Portal précise, par exemple `bpc_...`.
 
 ## 3. Stripe
 
@@ -78,6 +89,27 @@ Les identifiants à mettre dans Netlify :
 
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
+
+## 4.b Emails abonnement et résiliation
+
+La page `abonnement.html` ne montre jamais le lien Stripe dans le navigateur.
+
+Fonctionnement :
+
+1. Le client entre son email de facturation.
+2. `/api/request-customer-portal` cherche le client dans Neon.
+3. Si un client existe, la fonction crée une session Stripe Customer Portal.
+4. Le lien privé est envoyé uniquement à l'email de facturation.
+5. La réponse affichée sur le site reste générique pour ne pas révéler si un email est client ou non.
+
+Côté Stripe Dashboard, activer le Customer Portal et autoriser la résiliation d'abonnement. Pour Nama IA, le réglage recommandé est une résiliation à la fin de la période payée.
+
+Si Stripe fournit un identifiant de configuration `bpc_...`, le mettre dans Netlify avec la variable `STRIPE_PORTAL_CONFIGURATION_ID`. Sinon, le site utilisera la configuration par défaut du portail Stripe.
+
+Les notifications admin partent depuis le webhook Stripe quand :
+
+- une résiliation est programmée (`customer.subscription.updated` avec `cancel_at_period_end=true`) ;
+- un abonnement est annulé (`customer.subscription.deleted`).
 
 ## 5. Neon
 

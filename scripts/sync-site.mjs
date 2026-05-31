@@ -5,6 +5,8 @@ copyFileSync('NamaIAv17.html', 'nama-ia-netlify-premium.html');
 copyFileSync('NamaIAv17.html', 'site/index.html');
 copyFileSync('cgv.html', 'site/cgv.html');
 copyFileSync('confidentialite.html', 'site/confidentialite.html');
+copyFileSync('annexe-rgpd.html', 'site/annexe-rgpd.html');
 copyFileSync('mentions-legales.html', 'site/mentions-legales.html');
+copyFileSync('abonnement.html', 'site/abonnement.html');
 
 console.log('Site files synced.');

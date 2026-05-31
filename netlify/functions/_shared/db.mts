@@ -119,3 +119,37 @@ export async function findCustomerByCheckoutSession(sessionId: string) {
   `;
   return rows[0] as { id: string; stripe_customer_id: string; email: string | null } | undefined;
 }
+
+export async function findCustomerByBillingEmail(email: string) {
+  const db = sql();
+  const normalizedEmail = email.trim().toLowerCase();
+  const rows = await db`
+    select
+      c.id,
+      c.stripe_customer_id,
+      c.email,
+      c.name,
+      s.stripe_subscription_id,
+      s.plan_code,
+      s.status,
+      s.current_period_end
+    from public.nama_customers c
+    join public.nama_subscriptions s on s.customer_id = c.id
+    where lower(c.email) = ${normalizedEmail}
+      and c.stripe_customer_id is not null
+    order by
+      case when s.status in ('active', 'trialing', 'past_due', 'unpaid') then 0 else 1 end,
+      s.updated_at desc
+    limit 1
+  `;
+  return rows[0] as {
+    id: string;
+    stripe_customer_id: string;
+    email: string | null;
+    name: string | null;
+    stripe_subscription_id: string | null;
+    plan_code: string;
+    status: string;
+    current_period_end: Date | null;
+  } | undefined;
+}

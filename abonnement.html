@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <title>Gérer mon abonnement - Nama IA</title>
+  <style>
+    :root{color-scheme:dark;--fg:#f6f3ec;--muted:rgba(246,243,236,.68);--line:rgba(255,255,255,.13);--accent:#9ee7c2;--danger:#ffb39d}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 72% 16%,rgba(158,231,194,.15),transparent 34%),linear-gradient(180deg,#111313,#070707);font-family:Inter,Arial,sans-serif;color:var(--fg);padding:24px}
+    main{width:min(720px,100%);margin:0 auto;padding:54px 0}
+    .panel{border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.055);box-shadow:0 34px 100px rgba(0,0,0,.42);padding:34px}
+    .kicker{font:800 .68rem ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.14em;color:var(--accent)}
+    h1{font:600 clamp(2.2rem,7vw,4.2rem) Georgia,serif;line-height:1.03;margin:14px 0 18px;letter-spacing:-.03em}
+    p{color:var(--muted);line-height:1.7;font-size:1.02rem}.compact{font-size:.92rem;color:rgba(246,243,236,.55)}
+    form{display:grid;gap:12px;margin-top:26px}label{font-weight:800;font-size:.9rem}input{width:100%;min-height:54px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--fg);padding:0 16px;outline:none}input:focus{border-color:rgba(158,231,194,.75);box-shadow:0 0 0 4px rgba(158,231,194,.13)}
+    button{min-height:54px;border:0;border-radius:999px;background:#fff;color:#050505;font-weight:900;padding:0 20px;cursor:pointer}button[disabled]{opacity:.62;cursor:wait}
+    .message{display:none;margin-top:18px;border-radius:18px;padding:14px 16px;line-height:1.55}.message.ok{display:block;background:rgba(158,231,194,.12);border:1px solid rgba(158,231,194,.28);color:#dff9e9}.message.error{display:block;background:rgba(255,179,157,.1);border:1px solid rgba(255,179,157,.28);color:#ffe0d6}
+    .links{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.links a{color:#fff;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:12px 16px;background:rgba(255,255,255,.04);font-weight:800}
+    @media (max-width:560px){body{padding:16px}.panel{padding:26px 20px;border-radius:22px}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <div class="kicker">Abonnement</div>
+      <h1>Gérer ou résilier votre abonnement.</h1>
+      <p>Entrez l’email utilisé au paiement. Pour des raisons de sécurité, le lien privé Stripe n’est jamais affiché ici : il est envoyé uniquement à l’adresse de facturation.</p>
+      <form id="portalForm">
+        <label for="email">Email de facturation</label>
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder="vous@entreprise.fr">
+        <button id="submitBtn" type="submit">Recevoir mon lien privé</button>
+      </form>
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+      <p class="compact">Depuis l’espace sécurisé Stripe, vous pouvez consulter vos factures, gérer le moyen de paiement et demander la résiliation. La résiliation prend effet selon les conditions affichées dans Stripe et les CGV Nama IA.</p>
+      <div class="links">
+        <a href="index.html">Retour au site</a>
+        <a href="cgv.html">Lire les CGV</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById('portalForm');
+    const email = document.getElementById('email');
+    const button = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+
+    function showMessage(type, text) {
+      message.className = `message ${type}`;
+      message.textContent = text;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const oldText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Envoi en cours...';
+      message.className = 'message';
+      message.textContent = '';
+
+      try {
+        const response = await fetch('/api/request-customer-portal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email.value }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'Impossible d’envoyer le lien pour l’instant.');
+        showMessage('ok', data.message || 'Si un abonnement existe pour cet email, un lien privé vient d’être envoyé.');
+        form.reset();
+      } catch (error) {
+        showMessage('error', error instanceof Error ? error.message : 'Impossible d’envoyer le lien pour l’instant.');
+      } finally {
+        button.disabled = false;
+        button.textContent = oldText;
+      }
+    });
+  </script>
+</body>
+</html>
